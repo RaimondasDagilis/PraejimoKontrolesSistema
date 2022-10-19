@@ -9,27 +9,44 @@ namespace PraejimoKontrolesSistema.Classes
 {
     public class ReportGenerator
     {
-        private PassingRepository reportRepository;
-        private List<Passing> reportList;
-        public ReportGenerator(PassingRepository reportRepository)
+        private PassingRepository passingRepository;
+        private EmploeeRepository emploeeRepository;
+        private List<Report> reportList;
+        public ReportGenerator(PassingRepository passingRepository, EmploeeRepository emploeeRepository)
         {
-            this.reportRepository = reportRepository;
-            reportList = new List<Passing>();
+            this.passingRepository = passingRepository;
+            this.emploeeRepository = emploeeRepository;
+            reportList = new List<Report>();
         }
-        public List<Passing> GenerateReport()
+        public List<Report> GenerateReport()
         {
-            List<Passing> data = reportRepository.GetPassings();            
+            List<Passing> data = passingRepository.GetPassings();
             DateTime From = ValidateDate("Enter date from :");
             DateTime Till = ValidateDate("Enter date till :");
-            foreach (Passing report in data)
+            foreach (Passing passing in data)
             {
-                if (report.WasPassing >= From && report.WasPassing <= Till)
+                if (passing.WasPassing >= From && passing.WasPassing <= Till)
                 {
-                    reportList.Add(report);
+                    int id = GetNextId();
+                    Emploee emploee = emploeeRepository.GetEmploees(passing.EmploeesID);
+                    string name = emploee.Name;
+                    string surname = emploee.Surname;
+                    string department = emploee.Department;
+                    DateTime waspassing = passing.WasPassing;
+                    bool passed = passing.Passed;
+                    reportList.Add(new Report(id, name, surname, department, waspassing, passed));
                 }
             }
             return reportList;
-        }        
+        }
+        private int GetNextId()
+        {
+            if (reportList.Count == 0)
+            {
+                return 0;
+            }
+            return reportList.Count + 1;
+        }
         private DateTime ValidateDate(string input)
         {
             DateTime result;

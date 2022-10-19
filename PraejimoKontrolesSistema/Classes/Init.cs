@@ -20,7 +20,7 @@ namespace PraejimoKontrolesSistema.Classes
             permissionRepository = new PermissionRepository();
             reportRepository = new PassingRepository();
             entranceControl = new EntranceControl(emploeeRepository, permissionRepository, reportRepository);
-            reportGenerator = new ReportGenerator(reportRepository);
+            reportGenerator = new ReportGenerator(reportRepository, emploeeRepository);
        }
 
         public void Start()
