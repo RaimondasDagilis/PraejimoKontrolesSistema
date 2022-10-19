@@ -41,7 +41,11 @@ namespace PraejimoKontrolesSistema.Classes
                         entranceControl.PassControl();
                         break;
                     case "2":
-                        reportGenerator.GenerateReport();
+                        DateTime from = ValidateDate("Enter date from :");
+                        DateTime till = ValidateDate("Enter date till :");
+                        List<Report> reportList = reportGenerator.GenerateReport(from, till);
+                        string html = GenerateHTML.CreateHtml(reportList, from, till);
+                        CreatePDF.CreatePdfFromHtml(html, "Report.pdf");
                         break;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -51,6 +55,26 @@ namespace PraejimoKontrolesSistema.Classes
                 }
             }            
             
+        }
+        private DateTime ValidateDate(string input)
+        {
+            DateTime result;
+            while (true)
+            {
+                Console.Write(input);
+                string date = Console.ReadLine();
+                if (DateTime.TryParse(date, out result))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Entered wrong date. Try again.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
+            return result;
         }
     }
 }

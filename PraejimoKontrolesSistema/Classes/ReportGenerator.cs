@@ -18,14 +18,12 @@ namespace PraejimoKontrolesSistema.Classes
             this.emploeeRepository = emploeeRepository;
             reportList = new List<Report>();
         }
-        public List<Report> GenerateReport()
+        public List<Report> GenerateReport(DateTime from, DateTime till)
         {
-            List<Passing> data = passingRepository.GetPassings();
-            DateTime From = ValidateDate("Enter date from :");
-            DateTime Till = ValidateDate("Enter date till :");
+            List<Passing> data = passingRepository.GetPassings();            
             foreach (Passing passing in data)
             {
-                if (passing.WasPassing >= From && passing.WasPassing <= Till)
+                if (passing.WasPassing >= from && passing.WasPassing <= till)
                 {
                     int id = GetNextId();
                     Emploee emploee = emploeeRepository.GetEmploees(passing.EmploeesID);
@@ -36,7 +34,7 @@ namespace PraejimoKontrolesSistema.Classes
                     bool passed = passing.Passed;
                     reportList.Add(new Report(id, name, surname, department, waspassing, passed));
                 }
-            }
+            }            
             return reportList;
         }
         private int GetNextId()
@@ -46,26 +44,6 @@ namespace PraejimoKontrolesSistema.Classes
                 return 0;
             }
             return reportList.Count + 1;
-        }
-        private DateTime ValidateDate(string input)
-        {
-            DateTime result;
-            while (true)
-            { 
-                Console.Write(input);
-                string date = Console.ReadLine();
-                if (DateTime.TryParse(date, out result))
-                {
-                    break;
-                }
-                else
-                { 
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Entered wrong date. Try again.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                }
-            }            
-            return result;
-        }
+        }        
     }
 }
