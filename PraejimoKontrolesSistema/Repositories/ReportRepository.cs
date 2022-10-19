@@ -24,7 +24,7 @@ namespace PraejimoKontrolesSistema.Repositories
         }
         public Report GetReports(int id)
         {
-            return null;
+            return reports.FirstOrDefault(x => x.Id == id);
         }
         private int NextId()
         {

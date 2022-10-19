@@ -15,13 +15,6 @@ namespace PraejimoKontrolesSistema.Repositories
         {
             permitions = new List<Permition>();
             DataReader.GetDataFromFile(permitions);            
-        }        
-        private void Print()
-        {
-            foreach (var permition in permitions)
-            {
-                Console.WriteLine(permition.ValidFrom + " " + permition.ValidTill);
-            }
         }
         public List<Permition> GetPermitions()
         { 
