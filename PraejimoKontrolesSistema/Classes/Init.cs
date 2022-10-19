@@ -9,11 +9,11 @@ namespace PraejimoKontrolesSistema.Classes
 {
     public class Init
     {
-        EmploeeRepository emploeeRepository;
-        PermissionRepository permissionRepository;
-        EntranceControl entranceControl;
-        ReportRepository reportRepository;
-        ReportGenerator reportGenerator;
+        private EmploeeRepository emploeeRepository;
+        private PermissionRepository permissionRepository;
+        private EntranceControl entranceControl;
+        private ReportRepository reportRepository;
+        private ReportGenerator reportGenerator;
         public Init()
         {
             emploeeRepository = new EmploeeRepository();

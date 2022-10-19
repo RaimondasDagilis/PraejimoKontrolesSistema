@@ -1,7 +1,7 @@
 using PraejimoKontrolesSistema;
 using PraejimoKontrolesSistema.Repositories;
 
-namespace TestPraejimoKontrolesSistema
+namespace TestPraejimoKontrolesSistema.Tests
 {
     public class TestRepositories
     {
@@ -64,7 +64,7 @@ namespace TestPraejimoKontrolesSistema
             //Assert
             Assert.Greater(desiredResult, 0);
 
-        }        
+        }
         [Test]
         public void TestPermissionRepository_GetPermitions_ExistingIdIsPassed_GetsPermissionWithDesiredId()
         {
@@ -120,6 +120,6 @@ namespace TestPraejimoKontrolesSistema
             Assert.IsNull(emploee);
         }
 
-    }    
+    }
 
 }

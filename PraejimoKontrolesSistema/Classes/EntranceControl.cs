@@ -21,7 +21,7 @@ namespace PraejimoKontrolesSistema.Classes
 
         public void PassControl()
         {
-            string userinput = "";
+            string userinput;
             int id;
             Console.Clear();
             while (true)
