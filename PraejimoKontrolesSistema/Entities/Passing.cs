@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PraejimoKontrolesSistema
 {
-    public class Report
+    public class Passing
     {
         private int id;
         public int Id { get { return id; } }
@@ -17,7 +17,7 @@ namespace PraejimoKontrolesSistema
         private bool passed;
         public bool Passed { get { return passed; } }
 
-        public Report(int id, int emploeesID, DateTime waspassing, bool passed)
+        public Passing(int id, int emploeesID, DateTime waspassing, bool passed)
         {
             this.id = id;
             this.emploeesID = emploeesID;

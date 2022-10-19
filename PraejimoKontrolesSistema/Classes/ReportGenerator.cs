@@ -9,19 +9,19 @@ namespace PraejimoKontrolesSistema.Classes
 {
     public class ReportGenerator
     {
-        private ReportRepository reportRepository;
-        private List<Report> reportList;
-        public ReportGenerator(ReportRepository reportRepository)
+        private PassingRepository reportRepository;
+        private List<Passing> reportList;
+        public ReportGenerator(PassingRepository reportRepository)
         {
             this.reportRepository = reportRepository;
-            reportList = new List<Report>();
+            reportList = new List<Passing>();
         }
-        public List<Report> GenerateReport()
+        public List<Passing> GenerateReport()
         {
-            List<Report> data = reportRepository.GetReports();            
+            List<Passing> data = reportRepository.GetPassings();            
             DateTime From = ValidateDate("Enter date from :");
             DateTime Till = ValidateDate("Enter date till :");
-            foreach (Report report in data)
+            foreach (Passing report in data)
             {
                 if (report.WasPassing >= From && report.WasPassing <= Till)
                 {

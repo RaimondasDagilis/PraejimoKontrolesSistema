@@ -11,48 +11,48 @@ namespace TestPraejimoKontrolesSistema.Tests
         }
 
         [Test]
-        public void TestReportRepository_AddReport_ReportListCountPlus1()
+        public void TestPassingRepository_AddPassing_PassingListCountPlus1()
         {
             //Arrange
-            ReportRepository reportRepository = new ReportRepository();
-            int desiredResult = reportRepository.GetReports().Count + 1;
+            PassingRepository passingRepository = new PassingRepository();
+            int desiredResult = passingRepository.GetPassings().Count + 1;
             //Act
-            reportRepository.AddReport(1, DateTime.Now, true);
+            passingRepository.AddPassing(1, DateTime.Now, true);
             //Assert
-            Assert.AreEqual(desiredResult, reportRepository.GetReports().Count);
+            Assert.AreEqual(desiredResult, passingRepository.GetPassings().Count);
         }
         [Test]
-        public void TestReportRepository_GetReports_ListCountGreaterThan0()
+        public void TestPassingRepository_GetPassings_ListCountGreaterThan0()
         {
             //Arrange
-            ReportRepository reportRepository = new ReportRepository();
+            PassingRepository passingRepository = new PassingRepository();
             //Act
-            int desiredResult = reportRepository.GetReports().Count;
+            int desiredResult = passingRepository.GetPassings().Count;
             //Assert
             Assert.Greater(desiredResult, 0);
 
         }
         [Test]
-        public void TestReportRepository_GetReports_ExistingIdIsPassed_GetsReportWithDesiredId()
+        public void TestPassingRepository_GetPassings_ExistingIdIsPassed_GetsPassingWithDesiredId()
         {
             //Arrange
-            ReportRepository reportRepository = new ReportRepository();
+            PassingRepository passingRepository = new PassingRepository();
             //Act
             int id = 1;
-            Report report = reportRepository.GetReports(id);
+            Passing passing = passingRepository.GetPassings(id);
             //Assert
-            Assert.AreEqual(id, report.Id);
+            Assert.AreEqual(id, passing.Id);
         }
         [Test]
-        public void TestReportRepository_GetReports_NotExistingIdIsPassed_GetsNull()
+        public void TestPassingRepository_GetPassings_NotExistingIdIsPassed_GetsNull()
         {
             //Arrange
-            ReportRepository reportRepository = new ReportRepository();
+            PassingRepository passingRepository = new PassingRepository();
             //Act
             int id = -1;
-            Report report = reportRepository.GetReports(id);
+            Passing passing = passingRepository.GetPassings(id);
             //Assert
-            Assert.IsNull(report);
+            Assert.IsNull(passing);
         }
         [Test]
         public void TestPermissionRepository_GetPermitions_ListCountGreaterThan0()

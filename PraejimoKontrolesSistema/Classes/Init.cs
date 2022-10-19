@@ -12,13 +12,13 @@ namespace PraejimoKontrolesSistema.Classes
         private EmploeeRepository emploeeRepository;
         private PermissionRepository permissionRepository;
         private EntranceControl entranceControl;
-        private ReportRepository reportRepository;
+        private PassingRepository reportRepository;
         private ReportGenerator reportGenerator;
         public Init()
         {
             emploeeRepository = new EmploeeRepository();
             permissionRepository = new PermissionRepository();
-            reportRepository = new ReportRepository();
+            reportRepository = new PassingRepository();
             entranceControl = new EntranceControl(emploeeRepository, permissionRepository, reportRepository);
             reportGenerator = new ReportGenerator(reportRepository);
        }

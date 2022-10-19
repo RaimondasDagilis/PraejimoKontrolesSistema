@@ -27,13 +27,13 @@ namespace PraejimoKontrolesSistema.Classes
                 list.Add(new Permition(int.Parse(item.Element("id").Value), int.Parse(item.Element("emploee_id").Value), item.Element("valid_from").Value, item.Element("valid_till").Value));
             }
         }
-        public static void GetDataFromFile(List<Report> list)
+        public static void GetDataFromFile(List<Passing> list)
         {
-            var maps = from c in XElement.Load("reports.xml").Elements("report")
+            var maps = from c in XElement.Load("passings.xml").Elements("passing")
                        select c;
             foreach (var item in maps)
             {
-                list.Add(new Report(int.Parse(item.Element("id").Value), int.Parse(item.Element("emploeesID").Value), DateTime.Parse(item.Element("wasPassing").Value), bool.Parse(item.Element("passed").Value)));
+                list.Add(new Passing(int.Parse(item.Element("id").Value), int.Parse(item.Element("emploeesID").Value), DateTime.Parse(item.Element("wasPassing").Value), bool.Parse(item.Element("passed").Value)));
             }
         }
     }

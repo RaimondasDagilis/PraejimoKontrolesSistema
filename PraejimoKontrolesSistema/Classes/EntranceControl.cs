@@ -11,8 +11,8 @@ namespace PraejimoKontrolesSistema.Classes
     {
         EmploeeRepository emploeeRepository;
         PermissionRepository permissionRepository;
-        ReportRepository reportRepository;
-        public EntranceControl(EmploeeRepository emploeeRepository, PermissionRepository permissionRepository, ReportRepository reportRepository)
+        PassingRepository reportRepository;
+        public EntranceControl(EmploeeRepository emploeeRepository, PermissionRepository permissionRepository, PassingRepository reportRepository)
         {
             this.emploeeRepository = emploeeRepository;
             this.permissionRepository = permissionRepository;
@@ -40,7 +40,7 @@ namespace PraejimoKontrolesSistema.Classes
                         Console.Write("Welcome " + emploeeRepository.GetEmploees(permition.EmploeeID).Name + " " + emploeeRepository.GetEmploees(permition.EmploeeID).Surname + ". ");
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("You can pass.");
-                        reportRepository.AddReport(permition.EmploeeID, DateTime.Now, true);
+                        reportRepository.AddPassing(permition.EmploeeID, DateTime.Now, true);
                     }
                     else if (permition == null)
                     {
@@ -52,7 +52,7 @@ namespace PraejimoKontrolesSistema.Classes
                         Console.Write("Welcome " + emploeeRepository.GetEmploees(permition.EmploeeID).Name + " " + emploeeRepository.GetEmploees(permition.EmploeeID).Surname + ". ");
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You don't have permition to pass.");
-                        reportRepository.AddReport(permition.EmploeeID, DateTime.Now, false);
+                        reportRepository.AddPassing(permition.EmploeeID, DateTime.Now, false);
                     }                    
                 }
                 else

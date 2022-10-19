@@ -15,7 +15,7 @@ namespace TestPraejimoKontrolesSistema.Tests
         public void TestDataReader_GetDataFromFile_Report_ListCountGreaterThan0()
         {
             //Arrange
-            List<Report> list = new List<Report>();
+            List<Passing> list = new List<Passing>();
             //Act
             DataReader.GetDataFromFile(list);
             //Assert

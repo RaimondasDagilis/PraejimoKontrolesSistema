@@ -8,11 +8,11 @@ namespace PraejimoKontrolesSistema.Classes
 {
     public static class DataWriter
     {
-        public static void PushDataToFile(Report report, string fileName)
+        public static void PushDataToFile(Passing passing, string fileName)
         {
-            string data = $"<report><id>{report.Id}</id><emploeesID>{report.EmploeesID}</emploeesID><wasPassing>";
-            data += report.WasPassing.ToString("yyyy/MM/dd HH:mm:ss");
-            data += $"</wasPassing><passed>{report.Passed}</passed></report>";
+            string data = $"<passing><id>{passing.Id}</id><emploeesID>{passing.EmploeesID}</emploeesID><wasPassing>";
+            data += passing.WasPassing.ToString("yyyy/MM/dd HH:mm:ss");
+            data += $"</wasPassing><passed>{passing.Passed}</passed></passing>";
             var allLines = File.ReadAllLines(fileName).ToList();
             allLines.Insert(allLines.Count - 1, data);
             File.WriteAllLines(fileName, allLines.ToArray());
