@@ -11,11 +11,11 @@ namespace PraejimoKontrolesSistema.Repositories
     public class ReportRepository
     {
         private List<Report> reports;
-        private string FileName;
+        private string fileName;
         public ReportRepository()
         {
             reports = new List<Report>();
-            FileName = "reports.xml";
+            fileName = "reports.xml";
             CheckFile();
         }
         public List<Report> GetReports()
@@ -38,32 +38,18 @@ namespace PraejimoKontrolesSistema.Repositories
         {
             Report report = new Report(NextId(), emploeesID, waspassing, passed);
             reports.Add(report);
-            PushReportToFile(report);
+            DataWriter.PushDataToFile(report, fileName);
         }
         private void CheckFile()
         {
-            if (!File.Exists(FileName))
+            if (!File.Exists(fileName))
             {
-                using (StreamWriter writer = new StreamWriter(FileName))
-                {
-                    writer.WriteLine("<?xml version='1.0' encoding='UTF-8'?>");
-                    writer.WriteLine("<reports>");
-                    writer.WriteLine("</reports>");
-                }
+                DataWriter.CreateEmptyFile(fileName, "reports");
             }
             else
             {
                 DataReader.GetDataFromFile(reports);
             }
-        }
-        private void PushReportToFile(Report report)
-        {
-            string data = $"<report><id>{report.Id}</id><emploeesID>{report.EmploeesID}</emploeesID><wasPassing>";
-            data += report.WasPassing.ToString("yyyy/MM/dd HH:mm:ss");
-            data += $"</wasPassing><passed>{report.Passed}</passed></report>";
-            var allLines = File.ReadAllLines(FileName).ToList();
-            allLines.Insert(allLines.Count - 1, data);
-            File.WriteAllLines(FileName, allLines.ToArray());
-        }
+        }        
     }
 }
