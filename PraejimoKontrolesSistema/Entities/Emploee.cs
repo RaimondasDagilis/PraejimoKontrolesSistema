@@ -14,6 +14,7 @@ namespace PraejimoKontrolesSistema
         public string Name { get { return name; } }
         private string surname;        
         public string Surname { get { return surname; } }
+        public string FullName { get { return name + " " + surname; } }
         private string department;
         public string Department { get { return department; } }
         

@@ -15,7 +15,7 @@ namespace PraejimoKontrolesSistema
         private DateOnly validFrom;
         public DateOnly ValidFrom { get { return validFrom; } }
         private DateOnly validTill;
-        public DateOnly ValidTill { get { return validTill; } }
+        public DateOnly ValidTill { get { return validTill; } set { validTill = value; } }
         public Permition(int id, int emploeeID, string validFrom, string validTill)
         {
             this.id = id;

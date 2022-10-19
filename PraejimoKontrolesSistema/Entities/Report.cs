@@ -10,6 +10,8 @@ namespace PraejimoKontrolesSistema
     {
         private int id;
         public int Id { get { return id; } }
+        private int emploeesId;
+        public int EmploeesId { get { return emploeesId; } }
         
         private string name;
         public string Name { get { return name; } }
@@ -22,14 +24,15 @@ namespace PraejimoKontrolesSistema
         public string WasPassing { get { return wasPassing.ToString("yyyy/MM/dd HH:mm:ss"); } }
         private string passed;
         public string Passed { get { return passed; } }
-        public Report(int id, string name, string surname, string department, DateTime wasPassing, bool passed)
+        public Report(int id, int emploeesId, string name, string surname, string department, DateTime wasPassing, bool passed)
         {
             this.id = id;
+            this.emploeesId = emploeesId;
             this.name = name;
             this.surname = surname;
             this.department = department;
             this.wasPassing = wasPassing;
-            this.passed = passed ? "Access granted" : "Access denied";
+            this.passed = passed ? "Granted" : "Denied";
         }
 
     }

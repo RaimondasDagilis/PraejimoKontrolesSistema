@@ -12,15 +12,17 @@ namespace PraejimoKontrolesSistema.Classes
         private EmploeeRepository emploeeRepository;
         private PermissionRepository permissionRepository;
         private EntranceControl entranceControl;
-        private PassingRepository reportRepository;
+        private PassingRepository passingRepository;
         private ReportGenerator reportGenerator;
+        Administration administration;
         public Init()
         {
             emploeeRepository = new EmploeeRepository();
             permissionRepository = new PermissionRepository();
-            reportRepository = new PassingRepository();
-            entranceControl = new EntranceControl(emploeeRepository, permissionRepository, reportRepository);
-            reportGenerator = new ReportGenerator(reportRepository, emploeeRepository);
+            passingRepository = new PassingRepository();
+            entranceControl = new EntranceControl(emploeeRepository, permissionRepository, passingRepository);
+            reportGenerator = new ReportGenerator(passingRepository, emploeeRepository);
+            administration = new Administration(emploeeRepository, passingRepository, permissionRepository);
        }
 
         public void Start()
@@ -30,7 +32,7 @@ namespace PraejimoKontrolesSistema.Classes
             while (menu.ToLower().CompareTo("q") != 0)
             {
                 Console.Clear();
-                Console.Write("Select menu : [1] Control entrance. [2] Report. [Q] Quit program : ");
+                Console.Write("Select menu : [1] Control entrance. [2] Report. [3] Admin menu. [Q] Quit program : ");
                 menu = Console.ReadLine().ToLower();
                 switch (menu)
                 {
@@ -46,6 +48,9 @@ namespace PraejimoKontrolesSistema.Classes
                         List<Report> reportList = reportGenerator.GenerateReport(from, till);
                         string html = GenerateHTML.CreateHtml(reportList, from, till);
                         CreatePDF.CreatePdfFromHtml(html, "Report.pdf");
+                        break;
+                    case "3":
+                        administration.Init();
                         break;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;

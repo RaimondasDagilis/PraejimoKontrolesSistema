@@ -27,12 +27,13 @@ namespace PraejimoKontrolesSistema.Classes
                 {
                     int id = GetNextId();
                     Emploee emploee = emploeeRepository.GetEmploees(passing.EmploeesID);
+                    int emploeesID = emploee.Id;
                     string name = emploee.Name;
                     string surname = emploee.Surname;
                     string department = emploee.Department;
                     DateTime waspassing = passing.WasPassing;
                     bool passed = passing.Passed;
-                    reportList.Add(new Report(id, name, surname, department, waspassing, passed));
+                    reportList.Add(new Report(id, emploeesID, name, surname, department, waspassing, passed));
                 }
             }            
             return reportList;
