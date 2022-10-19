@@ -18,14 +18,9 @@ namespace PraejimoKontrolesSistema.Classes
         }
         public List<Report> GenerateReport()
         {
-            List<Report> data = reportRepository.GetReports();
-
-            Console.WriteLine("Enter date from :");
-            string dateFrom = Console.ReadLine();
-            Console.WriteLine("Enter date till :");
-            string dateTill = Console.ReadLine();
-            DateTime From = DateTime.Parse(dateFrom);
-            DateTime Till = DateTime.Parse(dateTill);
+            List<Report> data = reportRepository.GetReports();            
+            DateTime From = ValidateDate("Enter date from :");
+            DateTime Till = ValidateDate("Enter date till :");
             foreach (Report report in data)
             {
                 if (report.WasPassing >= From && report.WasPassing <= Till)
@@ -35,5 +30,25 @@ namespace PraejimoKontrolesSistema.Classes
             }
             return reportList;
         }        
+        private DateTime ValidateDate(string input)
+        {
+            DateTime result;
+            while (true)
+            { 
+                Console.Write(input);
+                string date = Console.ReadLine();
+                if (DateTime.TryParse(date, out result))
+                {
+                    break;
+                }
+                else
+                { 
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Entered wrong date. Try again.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }            
+            return result;
+        }
     }
 }
