@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PraejimoKontrolesSistema", "PraejimoKontrolesSistema\PraejimoKontrolesSistema.csproj", "{57FE42B2-0AD7-4D85-BFCA-E9457FFEBB18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PraejimoKontrolesSistema", "PraejimoKontrolesSistema\PraejimoKontrolesSistema.csproj", "{57FE42B2-0AD7-4D85-BFCA-E9457FFEBB18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPraejimoKontrolesSistema", "TestPraejimoKontrolesSistema\TestPraejimoKontrolesSistema.csproj", "{A58A630A-2089-4F24-AC1C-9D6950594B6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{57FE42B2-0AD7-4D85-BFCA-E9457FFEBB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57FE42B2-0AD7-4D85-BFCA-E9457FFEBB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57FE42B2-0AD7-4D85-BFCA-E9457FFEBB18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58A630A-2089-4F24-AC1C-9D6950594B6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58A630A-2089-4F24-AC1C-9D6950594B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58A630A-2089-4F24-AC1C-9D6950594B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58A630A-2089-4F24-AC1C-9D6950594B6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

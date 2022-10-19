@@ -16,15 +16,6 @@ namespace PraejimoKontrolesSistema.Repositories
             emploees = new List<Emploee>();
             DataReader.GetDataFromFile(emploees);
         }
-/*        private void GetEmploeesFromFile()
-        {
-            var maps = from c in XElement.Load("emploees.xml").Elements("emploee")
-                       select c;
-            foreach (var item in maps)
-            {
-                Emploees.Add(new Emploee(int.Parse(item.Element("id").Value), item.Element("first_name").Value, item.Element("last_name").Value, item.Element("departament").Value));
-            }
-        }        */
         public List<Emploee> GetEmploees()
         {
             return emploees;

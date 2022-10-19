@@ -58,10 +58,6 @@ namespace PraejimoKontrolesSistema.Repositories
         }
         private void PushReportToFile(Report report)
         {
-            /*
-        
-            id emploeesID wasPassing passed
-            */
             string data = $"<report><id>{report.Id}</id><emploeesID>{report.EmploeesID}</emploeesID><wasPassing>";
             data += report.WasPassing.ToString("yyyy/MM/dd HH:mm:ss");
             data += $"</wasPassing><passed>{report.Passed}</passed></report>";
