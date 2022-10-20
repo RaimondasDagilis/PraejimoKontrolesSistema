@@ -17,6 +17,24 @@ namespace PraejimoKontrolesSistema.Classes
             allLines.Insert(allLines.Count - 1, data);
             File.WriteAllLines(fileName, allLines.ToArray());
         }
+        public static void PushDataToFile(Emploee emploee, string fileName)
+        {
+            string data = $"<emploee><id>{emploee.Id}</id><first_name>{emploee.Name}</first_name><last_name>{emploee.Surname}</last_name><department>{emploee.Department}</department></emploee>";
+            var allLines = File.ReadAllLines(fileName).ToList();            
+            allLines.Insert(allLines.Count - 1, data);
+            File.WriteAllLines(fileName, allLines.ToArray());
+        }
+        public static void PushDataToFile(Permition permition, string fileName)
+        {
+            string data = $"<permition><id>{permition.Id}</id><emploee_id>{permition.EmploeeID}</emploee_id><valid_from>";
+            data += permition.ValidFrom.ToString("yyyy/MM/dd");
+            data += "</valid_from><valid_till>";
+            data += permition.ValidTill.ToString("yyyy/MM/dd");
+            data += "</valid_till></permission>";
+            var allLines = File.ReadAllLines(fileName).ToList();
+            allLines.Insert(allLines.Count - 1, data);
+            File.WriteAllLines(fileName, allLines.ToArray());
+        }
         public static void CreateEmptyFile(string fileName, string data)
         {
             using (StreamWriter writer = new StreamWriter(fileName))
@@ -44,20 +62,6 @@ namespace PraejimoKontrolesSistema.Classes
                 }
                 writer.WriteLine("</permissions>");
             }
-
-            /*
-             <permission>
-
-<id>1</id>
-
-<emploee_id>100</emploee_id>
-
-<valid_from>2022/02/22</valid_from>
-
-<valid_till>2025/02/21</valid_till>
-
-</permission>
-             */
         }
     }
 }

@@ -32,7 +32,7 @@ namespace PraejimoKontrolesSistema.Repositories
             {
                 return 1;
             }
-            return passings.Max(report => report.Id) + 1; 
+            return passings.Max(passing => passing.Id) + 1; 
         }
         public void AddPassing(int emploeesID, DateTime waspassing, bool passed)
         {
