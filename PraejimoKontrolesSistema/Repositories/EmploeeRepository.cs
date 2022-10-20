@@ -16,7 +16,10 @@ namespace PraejimoKontrolesSistema.Repositories
         {
             emploees = new List<Emploee>();
             fileName = "emploees.xml";
-            DataReader.GetDataFromFile(emploees);
+            if (DataWriter.CheckFile(fileName, "emploees"))
+            {
+                DataReader.GetDataFromFile(emploees);
+            }
         }
         public List<Emploee> GetEmploees()
         {

@@ -16,7 +16,10 @@ namespace PraejimoKontrolesSistema.Repositories
         {
             permitions = new List<Permition>();
             fileName = "permissions.xml";
-            DataReader.GetDataFromFile(permitions);            
+            if (DataWriter.CheckFile(fileName, "permissions"))
+            {
+                DataReader.GetDataFromFile(permitions);
+            }
         }
         public List<Permition> GetPermitions()
         { 

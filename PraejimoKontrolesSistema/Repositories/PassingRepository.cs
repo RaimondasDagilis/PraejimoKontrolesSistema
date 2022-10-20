@@ -16,7 +16,10 @@ namespace PraejimoKontrolesSistema.Repositories
         {
             passings = new List<Passing>();
             fileName = "passings.xml";
-            CheckFile();
+            if (DataWriter.CheckFile(fileName, "passings"))
+            {
+                DataReader.GetDataFromFile(passings);
+            }            
         }
         public List<Passing> GetPassings()
         { 
@@ -39,17 +42,6 @@ namespace PraejimoKontrolesSistema.Repositories
             Passing passing = new Passing(NextId(), emploeesID, waspassing, passed);
             passings.Add(passing);
             DataWriter.PushDataToFile(passing, fileName);
-        }
-        private void CheckFile()
-        {
-            if (!File.Exists(fileName))
-            {
-                DataWriter.CreateEmptyFile(fileName, "passings");
-            }
-            else
-            {
-                DataReader.GetDataFromFile(passings);
-            }
         }        
     }
 }
