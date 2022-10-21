@@ -20,6 +20,7 @@ namespace PraejimoKontrolesSistema.Classes
         }
         public List<Report> GenerateReport(DateTime from, DateTime till)
         {
+            reportList.Clear();
             List<Passing> data = passingRepository.GetPassings();            
             foreach (Passing passing in data)
             {
@@ -44,7 +45,7 @@ namespace PraejimoKontrolesSistema.Classes
             {
                 return 0;
             }
-            return reportList.Count + 1;
+            return reportList.Max(permition => permition.Id) + 1;
         }        
     }
 }

@@ -118,7 +118,10 @@ namespace PraejimoKontrolesSistema.Classes
                 {
                     emploeeRepository.GetEmploees().RemoveAll(x => x.Id == id);
                     permissionRepository.GetPermitions().RemoveAll(x => x.EmploeeID == id);
-                    passingRepository.GetPassings().RemoveAll(x => x.EmploeesID == id);
+                    passingRepository.GetPassings().RemoveAll(x => x.EmploeesID == id);                    
+                    DataWriter.PushWholeListToFile(emploeeRepository.GetEmploees());
+                    DataWriter.PushWholeListToFile(permissionRepository.GetPermitions());
+                    DataWriter.PushWholeListToFile(passingRepository.GetPassings());
                     Console.WriteLine("Records deleted. Press any key to continue");
                     Console.ReadKey();
                 }

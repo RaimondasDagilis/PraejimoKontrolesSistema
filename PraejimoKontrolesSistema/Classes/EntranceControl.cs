@@ -27,11 +27,11 @@ namespace PraejimoKontrolesSistema.Classes
             while (true)
             {
                 Console.Write("Enter your ID or [Q] to quit : ");
-                userinput = Console.ReadLine();
-                if (userinput.ToLower().CompareTo("q") == 0)
+                userinput = Console.ReadLine().ToLower();
+                if (userinput.CompareTo("q") == 0)
                 {
                     break;
-                }
+                }                
                 if (int.TryParse(userinput, out id))
                 {
                     Permition permition = permissionRepository.GetPermitions(id);
@@ -56,9 +56,8 @@ namespace PraejimoKontrolesSistema.Classes
                     }                    
                 }
                 else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Entered not valid ID number format. Try again.");
+                {                    
+                    Validation.Error("Entered not valid ID number format. Try again.");
                 }
                 Console.ForegroundColor = ConsoleColor.Gray;
             }

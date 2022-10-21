@@ -23,6 +23,12 @@ namespace PraejimoKontrolesSistema.Classes
             DateOnly.TryParse(input, out result);
             return result;
         }
+        public static DateTime ValidateDateTime(string input)
+        {
+            DateTime result;
+            DateTime.TryParse(input, out result);
+            return result;            
+        }
         public static void Error(string msg)
         {
             Console.ForegroundColor = ConsoleColor.Red;

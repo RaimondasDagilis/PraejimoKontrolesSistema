@@ -23,7 +23,7 @@ namespace PraejimoKontrolesSistema.Classes
             entranceControl = new EntranceControl(emploeeRepository, permissionRepository, passingRepository);
             reportGenerator = new ReportGenerator(passingRepository, emploeeRepository);
             administration = new Administration(emploeeRepository, passingRepository, permissionRepository);
-       }
+        }
 
         public void Start()
         {
@@ -39,12 +39,33 @@ namespace PraejimoKontrolesSistema.Classes
                     case "q":
                         Environment.Exit(0);
                         break;
-                    case "1":                        
+                    case "1":
                         entranceControl.PassControl();
                         break;
                     case "2":
-                        DateTime from = ValidateDate("Enter date from :");
-                        DateTime till = ValidateDate("Enter date till :");
+                        Console.WriteLine("Generate report.");
+                        DateTime from = new DateTime(1, 1, 1);
+                        DateTime till = new DateTime(1, 1, 1);
+                        while (from.ToString("yyyy/MM/dd").Equals("0001/01/01"))
+                        {
+                            Console.Write("Enter date from :");
+                            from = Validation.ValidateDateTime(Console.ReadLine());
+                            from += new TimeSpan(0, 0, 0);
+                            if (from.ToString("yyyy/MM/dd").Equals("0001/01/01"))
+                            {
+                                Validation.Error("Entered wrong date. Try again.");
+                            }
+                        }
+                        while (till.ToString("yyyy/MM/dd").Equals("0001/01/01"))
+                        {
+                            Console.Write("Enter date till :");
+                            till = Validation.ValidateDateTime(Console.ReadLine());
+                            till += new TimeSpan(23, 59, 59);
+                            if (till.ToString("yyyy/MM/dd").Equals("0001/01/01"))
+                            {
+                                Validation.Error("Entered wrong date. Try again.");
+                            }
+                        }
                         List<Report> reportList = reportGenerator.GenerateReport(from, till);
                         string html = GenerateHTML.CreateHtml(reportList, from, till);
                         CreatePDF.CreatePdfFromHtml(html, "Report.pdf");
@@ -53,33 +74,11 @@ namespace PraejimoKontrolesSistema.Classes
                         administration.Init();
                         break;
                     default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Entered non valid menu option. Try again!");
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Validation.Error("Entered non valid menu option. Try again!");
                         break;
                 }
-            }            
-            
-        }
-        private DateTime ValidateDate(string input)
-        {
-            DateTime result;
-            while (true)
-            {
-                Console.Write(input);
-                string date = Console.ReadLine();
-                if (DateTime.TryParse(date, out result))
-                {
-                    break;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Entered wrong date. Try again.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                }
             }
-            return result;
+
         }
     }
 }
