@@ -21,11 +21,11 @@ namespace PraejimoKontrolesSistema.Classes
         public void Init()
         {
             string menu = "";
-            while (!menu.ToLower().Equals("q"))
+            while (!menu.Equals("q"))
             {
                 Console.Clear();
                 Console.Write("[1]Extend permit [2]Search for emploee by name [3]Delete emploee info [4]Add new emploee [Q]Back to Main menu : ");
-                menu = Console.ReadLine();
+                menu = Console.ReadLine().ToLower();
                 switch (menu)
                 {
                     case "1":
@@ -40,13 +40,19 @@ namespace PraejimoKontrolesSistema.Classes
                     case "4":
                         AddEmploee();
                         break;
+                    case "q":
+                        break;
                     default:
+                        Validation.Error("Entered not existing menu option.");
                         break;
                 }
             }
         }
         public void AddEmploee()
-        {            
+        {
+            string validFrom = "";
+            string validTill = "";
+            bool validated = false;
             Console.WriteLine("Creating new emploee.");
             Console.Write("Name : ");
             string name = Console.ReadLine();
@@ -54,10 +60,33 @@ namespace PraejimoKontrolesSistema.Classes
             string surname = Console.ReadLine();
             Console.Write("Departament : ");
             string departament = Console.ReadLine();
-            Console.Write("Permit start date : ");
-            string validFrom = Console.ReadLine();
-            Console.Write("Permit end date : ");
-            string validTill = Console.ReadLine();
+            while (!validated)
+            {
+                Console.Write("Permit start date : ");            
+                validFrom = Console.ReadLine();
+                if (Validation.ValidateDateOnly(validFrom).ToString("yyyy/MM/dd").Equals("0001/01/01"))
+                {
+                    Validation.Error("Wrong date format.Try yyyy/MM/dd");
+                }
+                else
+                { 
+                    validated = true;
+                }
+            }
+            validated = false;
+            while (!validated)
+            {
+                Console.Write("Permit end date : ");
+                validTill = Console.ReadLine();
+                if (Validation.ValidateDateOnly(validTill).ToString("yyyy/MM/dd").Equals("0001/01/01"))
+                {
+                    Validation.Error("Wrong date format.Try yyyy/MM/dd");
+                }
+                else
+                {
+                    validated = true;
+                }
+            }            
             int id = emploeeRepository.AddEmploee(name, surname, departament);
             permissionRepository.AddPermition(id, validFrom, validTill);
             Console.WriteLine("Emploee created. Press any key to continue.");
@@ -65,37 +94,64 @@ namespace PraejimoKontrolesSistema.Classes
         }
         public void DeleteEmploeeInfo()
         {
-            Console.Write("Enter emploees ID : ");
-            int id = int.Parse(Console.ReadLine());
-            Console.WriteLine($"Emploee : {emploeeRepository.GetEmploees(id).FullName}");
-            Console.WriteLine("Permit valid from : {0} till {1}", permissionRepository.GetPermitionsByEmploeeId(id).ValidFrom.ToString("yyyy/MM/dd"), permissionRepository.GetPermitionsByEmploeeId(id).ValidTill.ToString("yyyy/MM/dd"));
-            Console.Write("Are you sure you want to delete this emploee and all records that belongs to it? [y/n] : ");
-            string confirm = Console.ReadLine();
-            if (confirm.ToLower().Equals("y"))
+            int id = 0;
+            while (id == 0)
             {
-                emploeeRepository.GetEmploees().RemoveAll(x => x.Id == id);
-                permissionRepository.GetPermitions().RemoveAll(x => x.EmploeeID == id);
-                passingRepository.GetPassings().RemoveAll(x => x.EmploeesID == id);
-                Console.WriteLine("Records deleted. Press any key to continue");
-                Console.ReadKey();
+                Console.Write("Enter emploees ID : ");
+                id = Validation.ValidateInteger(Console.ReadLine());
+                if (id == 0)
+                {                    
+                    Validation.Error("Entered wrong ID. Try again.");                 
+                }
             }
-            else 
+            Emploee emploee = emploeeRepository.GetEmploees(id);
+            if (emploee == null)
             {
-                Console.WriteLine("Operation cancelled.");
-                Console.ReadKey();
+                Validation.Error("Emploee with this ID was not found!");
             }
+            else
+            {
+                PrintEmploeeInfo(emploee);
+                Console.Write("Are you sure you want to delete this emploee and all records that belongs to it?[y/n] : ");
+                string confirm = Console.ReadLine();
+                if (confirm.ToLower().Equals("y"))
+                {
+                    emploeeRepository.GetEmploees().RemoveAll(x => x.Id == id);
+                    permissionRepository.GetPermitions().RemoveAll(x => x.EmploeeID == id);
+                    passingRepository.GetPassings().RemoveAll(x => x.EmploeesID == id);
+                    Console.WriteLine("Records deleted. Press any key to continue");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("Operation cancelled.");
+                    Console.ReadKey();
+                }
+            }
+        }
+        private void PrintEmploeeInfo(Emploee emploee)
+        {
+            Console.WriteLine($"Emploee ID : {emploee.Id} Emploee : {emploee.FullName} Departament {emploee.Department}");
+            Console.WriteLine("Permit ID : {0} Permit valid from : {1} till {2}", permissionRepository.GetPermitionsByEmploeeId(emploee.Id).Id, permissionRepository.GetPermitionsByEmploeeId(emploee.Id).ValidFrom.ToString("yyyy/MM/dd"), permissionRepository.GetPermitionsByEmploeeId(emploee.Id).ValidTill.ToString("yyyy/MM/dd"));
         }
         private void ListEmploeesByNameGiven()
         {
-            Console.Write("Enter fragment of the name or surname of Emploee : ");
+            int recordsFound = 0;
+            Console.Write("Enter fragment of full name of Emploee : ");
             string name = Console.ReadLine().ToLower();
             List<Emploee> list = emploeeRepository.GetEmploees();
             foreach (Emploee emploee in list)
             {
                 if (emploee.FullName.ToLower().Contains(name))
                 {
-                    Console.WriteLine("ID : {0} Name : {1}", String.Format("{0,3}", emploee.Id), emploee.FullName);
+                    PrintEmploeeInfo(emploee);
+                    Console.WriteLine("");
+                    recordsFound++;
                 }
+            }
+            if (recordsFound == 0)
+            {
+                Console.WriteLine("No records found");
             }
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
@@ -103,49 +159,67 @@ namespace PraejimoKontrolesSistema.Classes
         private void ExtendPermit()
         {
             string menu = "";
-            int id;
-            Permition permition;
             while (!menu.ToLower().Equals("q"))
             {
                 Console.Clear();
-                Console.Write("Select permit by [1] Permit ID [2] Emploee ID [Q] Back to Admin menu : ");
+                Console.Write("Select permit by [1]Permit ID [2]Emploee ID [Q]Back to Admin menu : ");
                 menu = Console.ReadLine();
                 switch (menu)
                 {
                     case "1":
-                        Console.Write("Enter permit ID : ");
-                        if (int.TryParse(Console.ReadLine(), out id))
-                        {
-                            permition = permissionRepository.GetPermitions(id);
-                            Console.Write("Enter permision end date : ");
-                            permition.ValidTill = DateOnly.Parse(Console.ReadLine());
-                            DataWriter.PushWholeListToFile(permissionRepository.GetPermitions());
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Entered wrong ID");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                        }
+                        ExtendPermit(1);
                         break;
                     case "2":
-                        Console.Write("Enter emploee ID : ");
-                        if (int.TryParse(Console.ReadLine(), out id))
-                        {
-                            permition = permissionRepository.GetPermitionsByEmploeeId(id);
-                            Console.Write("Enter permision end date : ");
-                            permition.ValidTill = DateOnly.Parse(Console.ReadLine());
-                            DataWriter.PushWholeListToFile(permissionRepository.GetPermitions());
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Entered wrong ID");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                        }
+                        ExtendPermit(2);
                         break;
                     default:
                         break;
+                }
+            }
+        }
+        private void ExtendPermit(int option)
+        {            
+            int id = 0;
+            DateOnly validTill = new DateOnly(1, 1, 1);
+            Permition permition;
+            Console.WriteLine("Select permit by ID");
+            while (id == 0)
+            {
+                Console.Write("Enter ID : ");
+                id = Validation.ValidateInteger(Console.ReadLine());
+                if (id == 0)
+                {
+                    Validation.Error("Entered wrong ID. Try again.");
+                }
+            }
+            if (option == 1)
+            {
+                permition = permissionRepository.GetPermitions(id);
+            }
+            else 
+            {
+                permition = permissionRepository.GetPermitionsByEmploeeId(id);
+            }
+            if (permition == null)
+            {
+                Validation.Error("Permition does not exist.");
+            }
+            else
+            {
+                PrintEmploeeInfo(emploeeRepository.GetEmploees(permition.EmploeeID));
+                while (validTill.ToString("yyyy/MM/dd").CompareTo("0001/01/01") == 0)
+                {
+                    Console.Write("Enter permision end date : ");
+                    validTill = Validation.ValidateDateOnly(Console.ReadLine());
+                    if (validTill.ToString("yyyy/MM/dd").CompareTo("0001/01/01") == 0)
+                    {
+                        Validation.Error("Entered wrong date.");                        
+                    }
+                    else
+                    {
+                        permition.ValidTill = validTill;
+                        DataWriter.PushWholeListToFile(permissionRepository.GetPermitions());
+                    }
                 }
             }
         }
