@@ -83,7 +83,7 @@ namespace PraejimoKontrolesSistema.Classes
                 {                    
                     writer.WriteLine(FormatRow(passing));
                 }
-                writer.WriteLine("</emploees>");
+                writer.WriteLine("</passings>");
             }
         }
         private static string FormatRow(Permition permition)
