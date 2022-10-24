@@ -3,7 +3,7 @@ using PraejimoKontrolesSistema.Classes;
 
 namespace TestPraejimoKontrolesSistema.Tests
 {
-    public class TestDataReader
+    internal class TestDataReader
     {
         [SetUp]
         public void Setup()

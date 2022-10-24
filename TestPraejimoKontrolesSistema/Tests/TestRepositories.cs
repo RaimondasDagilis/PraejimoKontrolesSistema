@@ -3,7 +3,7 @@ using PraejimoKontrolesSistema.Repositories;
 
 namespace TestPraejimoKontrolesSistema.Tests
 {
-    public class TestRepositories
+    internal class TestRepositories
     {
         [SetUp]
         public void Setup()

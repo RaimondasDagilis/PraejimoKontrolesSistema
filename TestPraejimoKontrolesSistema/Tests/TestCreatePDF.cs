@@ -2,7 +2,7 @@
 
 namespace TestPraejimoKontrolesSistema.Tests
 {
-    public class TestCreatePDF
+    internal class TestCreatePDF
     {
         [SetUp]
         public void Setup()
