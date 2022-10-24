@@ -14,8 +14,10 @@ namespace PraejimoKontrolesSistema.Classes
         {
             var render = new ChromePdfRenderer();
             var pdf = render.RenderHtmlAsPdf(input);
-            pdf.SaveAs(Path.Combine(Directory.GetCurrentDirectory(), fileName));
-
+            pdf.SaveAs(Path.Combine(Directory.GetCurrentDirectory(), fileName));            
+        }
+        public static void OpenFile(string fileName)
+        {
             ProcessStartInfo pi = new ProcessStartInfo(fileName);
             pi.Arguments = Path.GetFileName(fileName);
             pi.UseShellExecute = true;

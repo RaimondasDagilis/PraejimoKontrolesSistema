@@ -34,8 +34,8 @@ namespace PraejimoKontrolesSistema.Classes
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(msg);
             Console.WriteLine("Press any key to continue.");
-            Console.ReadKey();
             Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ReadKey();            
         }
     }    
 }

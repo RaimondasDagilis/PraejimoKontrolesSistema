@@ -89,6 +89,7 @@ namespace PraejimoKontrolesSistema.Classes
             }            
             int id = emploeeRepository.AddEmploee(name, surname, departament);
             permissionRepository.AddPermition(id, validFrom, validTill);
+            PrintEmploeeInfo(emploeeRepository.GetEmploees(id));
             Console.WriteLine("Emploee created. Press any key to continue.");
             Console.ReadKey();
         }

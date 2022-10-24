@@ -69,6 +69,7 @@ namespace PraejimoKontrolesSistema.Classes
                         List<Report> reportList = reportGenerator.GenerateReport(from, till);
                         string html = GenerateHTML.CreateHtml(reportList, from, till);
                         CreatePDF.CreatePdfFromHtml(html, "Report.pdf");
+                        CreatePDF.OpenFile("Report.pdf");
                         break;
                     case "3":
                         administration.Init();
