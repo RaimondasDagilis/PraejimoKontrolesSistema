@@ -1,6 +1,4 @@
-﻿using PraejimoKontrolesSistema;
-using PraejimoKontrolesSistema.Classes;
-using PraejimoKontrolesSistema.Repositories;
+﻿using PraejimoKontrolesSistema.Classes;
 
 namespace TestPraejimoKontrolesSistema.Tests
 {
