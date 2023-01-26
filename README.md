@@ -1,4 +1,4 @@
-# PraejimoKontrolesSistema
+# Praejimo Kontroles Sistema
 Praėjimo kontrolės sistema
 #Papildomai: praėjimų ataskaita per laikotarpį. Visi duomenys ateina iš repozitorijų, tuo tarpu
 repozitorijos nuskaito ir išsaugo duomenys iš bylų (tik jei liks laiko). Ataskaitas galima išsaugoti į
